@@ -1,3 +1,19 @@
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+
+// 🟢 Teste se tá online
+app.get('/', (req, res) => {
+  res.send('🟢 API rodando na bala no Railway 🔥🦍');
+});
+
+// 🔥 Consulta CPF
 app.get('/validar-cpf', async (req, res) => {
   const { cpf } = req.query;
 
@@ -40,4 +56,8 @@ app.get('/validar-cpf', async (req, res) => {
       detalhe: error.response ? error.response.data : error.message
     });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
